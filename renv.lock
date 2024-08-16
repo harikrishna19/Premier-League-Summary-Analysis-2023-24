@@ -1478,6 +1478,21 @@
       ],
       "Hash": "54b26646816af9960a4c64d8ceec75d6"
     },
+    "shinycssloaders": {
+      "Package": "shinycssloaders",
+      "Version": "1.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "digest",
+        "glue",
+        "grDevices",
+        "htmltools",
+        "shiny"
+      ],
+      "Hash": "2b45a467a30d6a88a1892a738c0900cf"
+    },
     "snakecase": {
       "Package": "snakecase",
       "Version": "0.11.1",
@@ -1499,6 +1514,22 @@
         "R"
       ],
       "Hash": "5f5a7629f956619d519205ec475fe647"
+    },
+    "sparklines": {
+      "Package": "sparklines",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "sparklines",
+      "RemoteUsername": "Bart6114",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "3d8cc661fb370e09761b55988df4cd94b6a25fdf",
+      "Requirements": [
+        "R",
+        "htmlwidgets"
+      ],
+      "Hash": "b5fc6fc99827e12112f0e146f08ffa24"
     },
     "stringi": {
       "Package": "stringi",
