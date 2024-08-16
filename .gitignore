@@ -1,12 +1,16 @@
+# Ignore R project files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 .RDataTmp
 .RDataTmp[0-9]*
-/.quarto/
 
+# Ignore Quarto files
+/quarto/
 
-/.sample_quarto_doc_files/
+# Ignore sample Quarto document files
+/sample_quarto_doc_files/
 
+# Ignore all HTML files
 *.html
