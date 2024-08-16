@@ -7,5 +7,6 @@ library(reactable)
 library(reactablefmtr)
 library(ggthemes)
 library(plotly)
-#library(emo)
-
+library(rvest)
+library(shinycssloaders)
+library(sparklines)
