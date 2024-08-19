@@ -30,7 +30,7 @@ sparklines_logic<-function(match_data,final_pl_table){
         TRUE ~ 1
       )
     )
-  match_data_filter$score<-ifelse(str_detect(match_data_filter$result,paste(final_pl_table$Squad[team],"Win",sep=" ")),3,ifelse(str_detect(match_data_filter$result, "Win"), -1, 0))
+  match_data_filter$score<-ifelse(str_detect(match_data_filter$result,paste(final_pl_table$Squad[team],"Win",sep=" ")),3,ifelse(str_detect(match_data_filter$result, "Win"), -1, 1))
 
   
   final_pl_table$score_by_week[final_pl_table$Squad == final_pl_table$Squad[team]] <- I(list(c(match_data_filter$score)))
@@ -49,7 +49,6 @@ sparklines_logic<-function(match_data,final_pl_table){
 
 
 
-
 #' @param pl_table  Pass a dataframe containing premier league table data
 #'
 #' @return Returns a complete dataframe with reactable data table containing all information
@@ -59,48 +58,49 @@ sparklines_logic<-function(match_data,final_pl_table){
 #' @examples
 #'season_level_stats(pl_table)
 season_level_stats <- function(pl_table) {
-season_table<-reactable(
-  pl_table %>% select("Team"=Squad,club_img,W,"Draw"=D,"Loss"=L,GF,GA,"Points"=Pts,"Top Goal Scorer"=Top.Team.Scorer,"Form"=score_by_week),
-  pagination = FALSE,sortable = FALSE,highlight = TRUE,fullWidth = TRUE,striped = TRUE,compact = TRUE,
-  theme = reactableTheme(
-    headerStyle = list(
-      "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
-      "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
-      borderColor = "#555"
-    )),
-  columns = list(
-    club_img = colDef(name = "",  sticky = "left",
-                      cell = embed_img(height = 35, width = 35)),
-    W = colDef(name ="Wins", 
-               cell = data_bars(pl_table, 
-                                align_bars = "left",round_edges = TRUE,
-                                bar_height = 10, 
-                                text_position = "outside-end", 
-                                background = "transparent",fill_color = "green"
-               )
-    ),
-    GF = colDef(name="Goals Scored",
-                cell = data_bars(pl_table, 
-                                 align_bars = "left",round_edges = TRUE, 
-                                 bar_height = 10, 
-                                 text_position = "outside-end", 
-                                 background = "transparent",fill_color = "blue" )
-    ),
-    GA = colDef(name="Goals Conceded",
-                cell = data_bars(pl_table, 
-                                 align_bars = "right",round_edges = TRUE,
-                                 bar_height = 10, 
-                                 text_position = "outside-end", 
-                                 background = "transparent",fill_color="red")
-    ),
-    Form = colDef(
-      cell = function(value) {
-        sparkline(value,chart_type = "bar",height=80,width=200)
-      }
-    )
-    
+  season_table<-reactable(
+    pl_table %>% select("Team"=Squad,club_img,W,"Draw"=D,"Loss"=L,GF,GA,"Points"=Pts,"Top Goal Scorer"=Top.Team.Scorer,"Form"=score_by_week),
+    pagination = FALSE,sortable = FALSE,highlight = TRUE,fullWidth = TRUE,striped = TRUE,compact = TRUE,
+    defaultColDef = colDef(name = NULL, align = "center"),
+    theme = reactableTheme(
+      headerStyle = list(
+        "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
+        "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
+        borderColor = "#555"
+      )),
+    columns = list(
+      club_img = colDef(name = "",  sticky = "left",
+                        cell = embed_img(height = 35, width = 35)),
+      W = colDef(name ="Wins", 
+                 cell = data_bars(pl_table, 
+                                  align_bars = "left",round_edges = TRUE,
+                                  bar_height = 10, 
+                                  text_position = "outside-end", 
+                                  background = "transparent",fill_color = "green"
+                 )
+      ),
+      GF = colDef(name="Goals Scored",
+                  cell = data_bars(pl_table, 
+                                   align_bars = "left",round_edges = TRUE, 
+                                   bar_height = 10, 
+                                   text_position = "outside-end", 
+                                   background = "transparent",fill_color = "blue" )
+      ),
+      GA = colDef(name="Goals Conceded",
+                  cell = data_bars(pl_table, 
+                                   align_bars = "right",round_edges = TRUE,
+                                   bar_height = 10, 
+                                   text_position = "outside-end", 
+                                   background = "transparent",fill_color="red")
+      ),
+      Form = colDef(
+        cell = function(value) {
+          sparkline(value,chart_type = "bar",height=80,width=200)
+        }
+      )
+      
     ))
-return(season_table)
+  return(season_table)
 }
 
 

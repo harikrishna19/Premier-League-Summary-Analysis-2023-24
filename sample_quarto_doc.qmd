@@ -38,18 +38,18 @@ shiny::selectInput('selectmatch', 'Select Match',choices=NULL)
 
 observe({
    req(input$selectteam)
-   shiny::updateSelectInput(session,"selectmatch",choices =get_match_details(match_results_data,team_select=input$selectteam))
+   shiny::updateSelectInput(session,"selectmatch",choices =names(get_match_details(match_results_data,input$selectteam)))
 })
 
 
 output$plot<-renderPlotly({
-  draw_event_graph(match_url = input$selectmatch,data_hex = hex_codes)
+  draw_event_graph(match_url = get_match_details(match_results_data,input$selectteam)[input$selectmatch],data_hex = hex_codes)
   
 }) %>% shiny::bindCache(input$selectmatch)
 
 output$table<-renderReactable({
   
-  match_report(match_url = input$selectmatch)
+  match_report(match_url = get_match_details(match_results_data,input$selectteam)[input$selectmatch])
   
 }) %>% shiny::bindCache(input$selectmatch)
 
@@ -93,8 +93,6 @@ shinycssloaders::withSpinner(reactable::reactableOutput("table"),type=2,color.ba
 shinycssloaders::withSpinner(reactable::reactableOutput("season_stats"),type=2,color.background = "orange")
 ```
 
-
-# About
 
 
 

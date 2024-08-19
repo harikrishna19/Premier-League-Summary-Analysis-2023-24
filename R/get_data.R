@@ -8,9 +8,11 @@
 #' @export
 get_match_details<-function(results_data,team_select){
   filter_team<-results_data %>% filter(Home==team_select | Away==team_select)
-  filter_team<-unique(filter_team[['MatchURL']])
+  filter_team<-list("match_selection"=unique(filter_team$MatchSelect),"MatchURL"=unique(filter_team[['MatchURL']]))
+  filter_team=setNames(filter_team$MatchURL,filter_team$match_selection)
   return(filter_team)
 }
+
 
 
 

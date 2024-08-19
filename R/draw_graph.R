@@ -34,19 +34,20 @@ draw_event_graph <- function(match_url,data_hex) {
     get_match_summary_data$Event_Type=="Red Card" ~ "🟥",
     get_match_summary_data$Event_Type=="Yellow Card" ~ "🟨",
   ) 
-  get_match_summary_data$Event_Display=paste0(get_match_summary_data$Event_Time,"-",get_match_summary_data$emoji1,"-",get_match_summary_data$Event_Players)
+  get_match_summary_data$Event_Display=paste0(get_match_summary_data$Event_Time," ' ","-",get_match_summary_data$emoji1,"-",get_match_summary_data$Event_Players)
 
   
  
-  
- 
+
   plot_graph<-get_match_summary_data %>%
     dplyr::mutate(y = case_when(Team == unique(get_match_summary_data$Away_Team) ~ -as.numeric(Score_Value), .default = as.numeric(Score_Value))) %>%
     ggplot(aes(x = Event_Time, y = y, color = Team,text=Event_Display)) +
     geom_point(size=3) +
     geom_segment(aes(x = Event_Time, xend = Event_Time, y = 0, yend = y), linetype = 2) +
     geom_hline(yintercept = 0) +
-    geom_vline(xintercept = 45)+
+    geom_vline(xintercept = 45,linetype = "dotted", color = "red")+
+    annotate("text", x = 45, y = 0.5, label = "Half Time", 
+             vjust = -0.5, hjust = 0.5,angle=90,  color = "black") +
     expand_limits(y = 0) +
     scale_y_continuous(
       labels = abs,
@@ -55,9 +56,18 @@ draw_event_graph <- function(match_url,data_hex) {
     scale_colour_manual(values = c(data_hex[data_hex$Squad==unique(get_match_summary_data$Home_Team),][['Codes']],data_hex[data_hex$Squad==unique(get_match_summary_data$Away_Team),][['Codes']]))+
     guides(color = guide_legend(override.aes = list(shape = 16)),  # Adjust legend
            shape = guide_legend(title = "Emojis")) +
-    labs(x = "Event Time", y = "Goals Scored By Team") +
-    theme_solarized(light = T)
-  
+    labs(
+      title = "Event occured in the game vs Time",
+      x = "Event Time",
+      y = "Goals scored by team",
+    ) +
+    theme_solarized()+
+    theme(
+      plot.title = element_text(color = "black", size = 14, face = "bold",hjust = 0.5),       # Title
+      axis.title.x = element_text(color = "red", size = 12,face = "bold"),                     # X-Axis Label
+      axis.title.y = element_text(color = "red", size = 12,face = "bold"),                     # Y-Axis Label
+    )
+
   plot_graph<-ggplotly(plot_graph,tooltip = "Event_Display")
   
   return(plot_graph)

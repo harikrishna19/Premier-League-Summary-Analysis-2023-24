@@ -34,27 +34,29 @@ team_comparison <- data.frame(
   `Away Team`=team_b_data
 )
 
-
-
 # Print the data frame
-render_table<-team_comparison %>% reactable(bordered = T,highlight = T,striped = T,compact=T,
-                  defaultColDef = colDef(name=NULL,
-                                         align = "center"),
-                  ,theme = reactableTheme(
-                    borderColor = "#dfe2e5",
-                    stripedColor = "#f6f8fa",
-                    highlightColor = "#f0f5f9",
-                    cellPadding = "8px 12px",
-                    style = list(
-                      fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"
-                    ),
-                    searchInputStyle = list(width = "100%")
-                  ))
+render_table <- team_comparison %>% select("Home Team" = Home.Team, "Statistic", "Away Team" =
+                                             Away.Team) %>% reactable(
+                                               bordered = T,
+                                               highlight = T,
+                                               striped = T,
+                                               compact = T,
+                                               resizable = T,
+                                               
+                                               defaultColDef = colDef(name = NULL, align = "center"),
+                                               ,
+                                               theme = reactableTheme(
+                                                 borderColor = "red",
+                                                 stripedColor = "#ffa",
+                                                 cellPadding = "8px 12px",
+                                                 style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"),
+                                                 searchInputStyle = list(width = "100%")
+                                               )
+                                             )
 
 return(render_table)
-    
-}
 
+}
 
 
 
