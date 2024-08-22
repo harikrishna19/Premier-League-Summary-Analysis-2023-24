@@ -106,6 +106,3 @@ season_level_stats <- function(pl_table) {
 
 
 
-
-
-

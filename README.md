@@ -10,7 +10,7 @@ Visualizations are shown at season level and at team level.
 
 Using **{worldfootballR}** package for extracting data for 2023-24 season.The data includes season level and match level data
 
-The worldfootballR package uses **fbref** site data where in there are inbuilt functions to get the statistics for match/season level
+The worldfootballR package extracts **fbref** site data where in there are inbuilt functions to get the statistics for match/season level
 
 Using other R libraries like **tidyverse,tidyr ,rvest-for scraping team logos from transfermarkt** etc for data cleaning and manipulations
 
@@ -26,7 +26,7 @@ Table packages {**reactable} and {reactablefmtr**} is used to display the tables
 
 **1.Match Summaries**
 
-Every event in a match plays a crucial role in football
+Every event in a match plays a crucial role in the game of football
 
 From goals to assists to cards etc
 
@@ -34,15 +34,25 @@ Below graphs is represented where in the user selects a team and a corresponding
 
 Each event in a match is represented as dot in the graph and when hover over a point the event details are displayed
 
+-   "⬆️⬇️"-Substitution
+
+-   "🟥"-Red Card
+
+-   "🟨"-Yellow Card
+
+-   ⚽-Goal
+
 ![](images/newplot%20(1).png)
 
 This following match shows event level analysis for particular match-Chelsea vs Manchester City in the above example
+
+**Each team is assigned different hex codes according to their kit colour**
 
 **2.Match Report**
 
 ![](images/Capture-123.PNG)
 
-Match report table displays the Stats like(Goals Scored,Team Name,Xg,Cards etc.)
+Match report table displays the Stats like(Goals Scored,Team Name,Xg,Cards,Goal Scorers etc.)
 
 **3**.**Season Level analysis**
 
@@ -58,7 +68,7 @@ In the above season level analysis for the season 2023-24 overall data is displa
 
 -   Top Goal Scorer of the team
 
-Additional **Form** column represents the team form overall for 38 week season
+Additional **Form** column represents the team form overall for 38 week match-season
 
 ![](images/Capture-5321.PNG)
 
