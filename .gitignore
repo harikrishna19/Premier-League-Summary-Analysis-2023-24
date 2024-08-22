@@ -7,10 +7,14 @@
 .RDataTmp[0-9]*
 
 # Ignore Quarto files
-/quarto/
+.quarto/
 
 # Ignore sample Quarto document files
-/sample_quarto_doc_files/
+sample_quarto_doc_files/
 
 # Ignore all HTML files
 *.html
+
+*.RDataTmp
+
+rsconnect/

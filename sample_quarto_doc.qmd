@@ -10,12 +10,7 @@ server: shiny
 
 ```{r warning=FALSE}
 #| context: setup
-source("R/libraries.R")
-source("R/draw_graph.R")
-source("R/get_data.R")
-source("R/table_report.R")
-source("R/season_level_Stats.R")
-
+source("R/utils.R")
 match_results_data<-read.csv("data/match_results_data.csv")
 final_pl_table<-read.csv("data/final_pl_table.csv")
 final_pl_table<-sparklines_logic(match_data = match_results_data,final_pl_table = final_pl_table)
@@ -38,18 +33,18 @@ shiny::selectInput('selectmatch', 'Select Match',choices=NULL)
 
 observe({
    req(input$selectteam)
-   shiny::updateSelectInput(session,"selectmatch",choices =get_match_details(match_results_data,team_select=input$selectteam))
+   shiny::updateSelectInput(session,"selectmatch",choices =names(get_match_details(match_results_data,input$selectteam)))
 })
 
 
 output$plot<-renderPlotly({
-  draw_event_graph(match_url = input$selectmatch,data_hex = hex_codes)
+  draw_event_graph(match_url = get_match_details(match_results_data,input$selectteam)[input$selectmatch],data_hex = hex_codes)
   
 }) %>% shiny::bindCache(input$selectmatch)
 
 output$table<-renderReactable({
   
-  match_report(match_url = input$selectmatch)
+  match_report(match_url = get_match_details(match_results_data,input$selectteam)[input$selectmatch])
   
 }) %>% shiny::bindCache(input$selectmatch)
 
@@ -66,7 +61,7 @@ output$season_stats<-renderReactable({
 # Match Level Stats
 
 ```{r}
-#| title: "Events wrt time plot"
+#| title: "Events vs Time Graph "
 shinycssloaders::withSpinner(plotlyOutput('plot',width ='100%',height='100%'),type=2,color.background = "orange")
 ```
 
@@ -75,12 +70,6 @@ shinycssloaders::withSpinner(plotlyOutput('plot',width ='100%',height='100%'),ty
 shinycssloaders::withSpinner(reactable::reactableOutput("table"),type=2,color.background = "orange")
 ```
 
-<!-- ### Column -->
-
-<!-- ```{r} -->
-<!-- #| title: "Match Report Table" -->
-<!-- reactable::reactable(iris) -->
-<!-- ``` -->
 
 
 
@@ -89,12 +78,10 @@ shinycssloaders::withSpinner(reactable::reactableOutput("table"),type=2,color.ba
 
 ## Row
 ```{r}
-#| title: "Match Report Table"
+#| title: "Season Report Table"
 shinycssloaders::withSpinner(reactable::reactableOutput("season_stats"),type=2,color.background = "orange")
 ```
 
-
-# About
 
 
 
