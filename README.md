@@ -10,6 +10,8 @@ Visualizations are shown at season level and at team level.
 
 Using **{worldfootballR}** package for extracting data for 2023-24 season.The data includes season level and match level data
 
+The worldfootballR package uses **fbref** site data where in there are inbuilt functions to get the statistics for match/season level
+
 Using other R libraries like **tidyverse,tidyr ,rvest-for scraping team logos from transfermarkt** etc for data cleaning and manipulations
 
 Table packages {**reactable} and {reactablefmtr**} is used to display the tables in the dashboard)
