@@ -16,3 +16,5 @@ sample_quarto_doc_files/
 *.html
 
 *.RDataTmp
+
+rsconnect/

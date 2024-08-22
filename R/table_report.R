@@ -64,19 +64,4 @@ return(render_table)
 
 
 
-# GIve USer for selection -------------------------------------------------
-
-
-# 
-# match_report_adv<-function(match_url){
-#   
-#   adv_stats<-worldfootballR::fb_advanced_match_stats(match_url,stat_type = "summary", team_or_player = "team")
-#   
-#   adv_stats<-reactable(as.data.frame(adv_stats) %>% t(),filterable = T,pagination = F,pageSizeOptions = 25)
-#   
-#   
-# return(adv_stats)  
-# }
-# 
-# match_report_adv(match_results_data$MatchURL[1])
 

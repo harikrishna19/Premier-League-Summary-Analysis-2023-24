@@ -48,7 +48,6 @@ sparklines_logic<-function(match_data,final_pl_table){
 
 
 
-
 #' @param pl_table  Pass a dataframe containing premier league table data
 #'
 #' @return Returns a complete dataframe with reactable data table containing all information
@@ -60,16 +59,18 @@ sparklines_logic<-function(match_data,final_pl_table){
 season_level_stats <- function(pl_table) {
   season_table<-reactable(
     pl_table %>% select("Team"=Squad,club_img,W,"Draw"=D,"Loss"=L,GF,GA,"Points"=Pts,"Top Goal Scorer"=Top.Team.Scorer,"Form"=score_by_week),
-    pagination = FALSE,sortable = FALSE,highlight = TRUE,fullWidth = TRUE,striped = TRUE,compact = TRUE,
-    defaultColDef = colDef(name = NULL, align = "center"),
+    pagination = FALSE,sortable = FALSE,highlight = TRUE,striped = TRUE,compact = TRUE,defaultExpanded = F,resizable = T,
+    defaultColDef = colDef(name = NULL, align = "center",width = 150,resizable = T),
     theme = reactableTheme(
       headerStyle = list(
         "&:hover[aria-sort]" = list(background = "hsl(0, 0%, 96%)"),
         "&[aria-sort='ascending'], &[aria-sort='descending']" = list(background = "hsl(0, 0%, 96%)"),
         borderColor = "#555"
       )),
+    # Give rows a pointer cursor to indicate that they're clickable
+    rowStyle = list(cursor = "pointer"),
     columns = list(
-      club_img = colDef(name = "",  sticky = "left",
+      club_img = colDef(name = "",  sticky = "right",
                         cell = embed_img(height = 35, width = 35)),
       W = colDef(name ="Wins", 
                  cell = data_bars(pl_table, 
